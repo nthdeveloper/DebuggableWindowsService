@@ -4,12 +4,17 @@ using System.Threading;
 
 namespace DebuggableWindowsService
 {
+    /// <summary>
+    /// Contains actual background operations that our Windows service performs
+    /// </summary>
     class SampleBackgroundService
     {
-        private static ILog logger = LogManager.GetLogger(typeof(Program));
+        //Get a logger for this class from log4net LogManager
+        private static ILog logger = LogManager.GetLogger(typeof(SampleBackgroundService));
 
         bool stopRequested;
 
+        //Starts the thread
         public void Start()
         {
             logger.Debug("Start called.");
@@ -18,12 +23,14 @@ namespace DebuggableWindowsService
             thr.Start();
         }
 
+        //Stops the thread
         public void Stop()
         {
             logger.Debug("Stop called.");
             stopRequested = true;
         }
 
+        //Service thread that performs background tasks and writes logs
         private void serviceThread()
         {
             logger.Debug("Service thread started.");

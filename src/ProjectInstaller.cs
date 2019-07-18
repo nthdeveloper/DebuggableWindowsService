@@ -19,14 +19,18 @@ namespace DebuggableWindowsService
 
         public ProjectInstaller()
         {
+            //Installer that installs the process (in this case 'DebuggableWindowsService.exe')
+            //There can be only one ServiceProcessInstaller
+            m_ServiceProcessInstaller = new ServiceProcessInstaller();
+            m_ServiceProcessInstaller.Account = ServiceAccount.LocalSystem;
+
+            //Installer that registers actual Windows Service implementations in the application
+            //There may be one or more ServiceInstaller
             m_ServiceInstaller = new ServiceInstaller();
             m_ServiceInstaller.ServiceName = SERVICE_NAME;
             m_ServiceInstaller.Description = "";
             m_ServiceInstaller.StartType = ServiceStartMode.Automatic;
-            m_ServiceInstaller.DelayedAutoStart = true;
-
-            m_ServiceProcessInstaller = new ServiceProcessInstaller();
-            m_ServiceProcessInstaller.Account = ServiceAccount.LocalSystem;
+            m_ServiceInstaller.DelayedAutoStart = true;            
 
             Installers.Add(m_ServiceProcessInstaller);
             Installers.Add(m_ServiceInstaller);
@@ -47,6 +51,11 @@ namespace DebuggableWindowsService
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
             base.OnBeforeUninstall(savedState);
+        }
+
+        protected override void OnAfterUninstall(IDictionary savedState)
+        {
+            base.OnAfterUninstall(savedState);
         }
     }
 }
