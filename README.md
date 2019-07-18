@@ -1,5 +1,7 @@
 # Debuggable Windows Service Template Project
 
+Source code for Code Project article [Debuggable Windows Service Template Project with C#](https://www.codeproject.com/Articles/5162593/Debuggable-Windows-Service-Template-Project-with-C)
+
 ### Features
 Sample project has the following features;
 
